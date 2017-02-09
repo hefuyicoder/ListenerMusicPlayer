@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="?selectableItemBackground"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/linear_layout_list_item_height">
+
+    <View
+        android:id="@+id/playscore"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@color/playRankingScoreBackground"/>
+
+    <View
+        android:id="@+id/now_playing_indicator"
+        android:visibility="gone"
+        android:layout_width="5.0dip"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="12.0dip"
+        android:layout_marginBottom="8.0dip" />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/linear_layout_list_item_image_size"
+        android:layout_height="@dimen/linear_layout_list_item_image_size"
+        android:layout_marginLeft="@dimen/linear_layout_list_item_padding"
+        android:src="?default_album_drawable"
+        android:scaleType="centerCrop"
+        android:layout_centerVertical="true" />
+
+    <ImageView
+        android:id="@+id/popup_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="?actionBarItemBackground"
+        android:tint="@color/background_floating_material_dark"
+        style="@style/Widget.AppCompat.ActionButton.Overflow"
+        android:src="@drawable/abc_ic_menu_moreoverflow_mtrl_alpha"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/linear_layout_list_item_padding"
+        android:layout_toLeftOf="@id/popup_menu"
+        android:layout_toRightOf="@id/image"
+        android:layout_centerVertical="true">
+
+        <TextView
+            android:id="@+id/text_item_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            style="@style/ListItemTitleStyle"/>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="@dimen/linear_layout_list_text_line_space">
+
+            <TextView
+                android:id="@+id/text_item_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="@dimen/linear_layout_list_subtitle_max_width"
+                style="@style/ListItemSubTitleStyle"/>
+
+            <View
+                android:id="@id/divider_subtitle"
+                android:background="@color/colorDividerBlack"
+                android:layout_width="1.0dip"
+                android:layout_height="@dimen/text_vertical_divider_height"
+                android:layout_marginLeft="@dimen/linear_layout_list_text_line_space"
+                android:layout_marginRight="@dimen/linear_layout_list_text_line_space"
+                android:layout_toRightOf="@id/text_item_subtitle"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:id="@+id/text_item_subtitle_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="@dimen/linear_layout_list_subtitle_2_max_width"
+                android:layout_toRightOf="@id/divider_subtitle"
+                android:layout_centerVertical="true"
+                style="@style/ListItemSubTitleStyle" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="ate_key" format="string" />
+
+    <declare-styleable name="TimelyView">
+        <attr name="text_color" format="color"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="FastScrollRecyclerView">
+        <attr name="fastScrollThumbColor" format="reference|color" />
+        <attr name="fastScrollTrackColor" format="reference|color" />
+        <attr name="fastScrollPopupBgColor" format="reference|color" />
+        <attr name="fastScrollPopupTextColor" format="reference|color" />
+        <attr name="fastScrollPopupTextSize" format="reference|dimension" />
+        <attr name="fastScrollPopupBackgroundSize" format="reference|dimension" />
+        <attr name="fastScrollAutoHide" format="reference|boolean" />
+        <attr name="fastScrollAutoHideDelay" format="reference|integer" />
+    </declare-styleable>
+
+    <declare-styleable name="ForegroundImageView">
+        <attr name="android:foreground"/>
+    </declare-styleable>
+
+    <declare-styleable name="PlayPause">
+        <attr name="isCircleDraw" format="boolean" />
+        <attr name="circleAlpha" format="integer" />
+        <attr name="backgroundColor" format="reference|color" />
+        <attr name="drawableColor" format="reference|color" />
+    </declare-styleable>
+
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <io.hefuyi.listener.widget.ThemedPreferenceCategory android:title="@string/color">
+
+        <com.afollestad.appthemeengine.prefs.ATEColorPreference
+            android:key="primary_color"
+            android:persistent="false"
+            android:summary="@string/primary_color_summary"
+            android:title="@string/primary_color"
+            app:ateKey_pref_color="?ate_key" />
+
+        <com.afollestad.appthemeengine.prefs.ATECheckBoxPreference
+            android:defaultValue="false"
+            android:key="dark_theme"
+            android:persistent="true"
+            android:summary="@string/dark_theme_summary"
+            android:title="@string/dark_theme"
+            android:widgetLayout="@layout/ate_preference_checkbox"
+            app:ateKey_pref_checkBox="?ate_key" />
+
+    </io.hefuyi.listener.widget.ThemedPreferenceCategory>
+
+</PreferenceScreen>

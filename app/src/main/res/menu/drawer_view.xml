@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/group1"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_library"
+
+            android:title="@string/library" />
+        <item
+            android:id="@+id/nav_playlists"
+
+            android:title="@string/playlists" />
+        <item
+            android:id="@+id/nav_folders"
+
+            android:title="@string/folders" />
+        <item
+            android:id="@+id/nav_favourate"
+
+            android:title="@string/favourate" />
+        <item
+            android:id="@+id/nav_recent_play"
+
+            android:title="@string/recent_play" />
+        <item
+            android:id="@+id/nav_recent_add"
+
+            android:title="@string/recent_add" />
+
+        <item
+            android:id="@+id/nav_play_ranking"
+
+            android:title="@string/play_ranking" />
+
+    </group>
+
+    <group
+        android:id="@+id/group2"
+        android:checkableBehavior="none">
+        <item
+
+            android:id="@+id/nav_settings"
+            android:title="@string/settings" />
+
+        <item
+
+            android:id="@+id/nav_exit"
+            android:title="@string/exit" />
+    </group>
+
+</menu>

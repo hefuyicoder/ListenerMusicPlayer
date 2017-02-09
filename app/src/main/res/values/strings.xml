@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_sort_by">Sort by</string>
+    <string name="sort_order_entry_az">A-Z</string>
+    <string name="sort_order_entry_za">Z-A</string>
+    <string name="sort_order_entry_artist">Artist</string>
+    <string name="sort_order_entry_album">Album</string>
+    <string name="sort_order_entry_year">Year</string>
+    <string name="sort_order_entry_track_number">Track Number</string>
+    <string name="sort_order_entry_duration">Duration</string>
+    <string name="sort_order_entry_number_of_songs">Number of songs</string>
+    <string name="sort_order_entry_number_of_albums">Number of albums</string>
+
+    <string name="error_playing_track">Error Playing track</string>
+
+    <string name="playlist_last_added">Last Added</string>
+    <string name="playlist_recently_played">Recently Played</string>
+    <string name="playlist_top_tracks">My Favourate Tracks</string>
+
+    <string name="menu_show_as">View As</string>
+    <string name="menu_show_as_entry_list">List</string>
+    <string name="menu_show_as_entry_grid">Grid</string>
+
+    <string name="songs">Songs</string>
+    <string name="albums">Albums</string>
+    <string name="artists">Artists</string>
+    <string name="library">Library</string>
+    <string name="playlists">Playlists</string>
+    <string name="folders">Folders</string>
+    <string name="favourate">Favourate</string>
+    <string name="recent_play">Recent Play</string>
+    <string name="recent_add">Recent Add</string>
+    <string name="settings">Settings</string>
+    <string name="exit">Exit</string>
+    <string name="search">Search</string>
+    <string name="action_equalizer">Equalizer</string>
+    <string name="search_library">Search Library</string>
+
+    <string name="play_shuffle">Play shuffle in all</string>
+
+
+    <string name="dark_theme">Dark Theme</string>
+    <string name="dark_theme_summary">Apply a dark theme throughout the app</string>
+
+    <string name="primary_color">Primary Color</string>
+    <string name="primary_color_summary">Change the primary theme color</string>
+
+    <string name="count_song"><xliff:g id="count">%d</xliff:g> song</string>
+    <string name="count_songs"><xliff:g id="count">%d</xliff:g> songs</string>
+    <string name="count_album"><xliff:g id="count">%d</xliff:g> album</string>
+    <string name="count_albums"><xliff:g id="count">%d</xliff:g> albums</string>
+
+    <string name="number_song_add_queue"><xliff:g example="1" id="number">%d</xliff:g> song added to the queue.</string>
+    <string name="number_songs_add_queue"><xliff:g example="1" id="number">%d</xliff:g> songs added to the queue.</string>
+    <string name="number_song_add_playlist"><xliff:g example="1" id="number">%d</xliff:g> song added to playlist.</string>
+    <string name="number_songs_add_playlist"><xliff:g example="1" id="number">%d</xliff:g> songs added to playlist.</string>
+    <string name="number_song_delete"><xliff:g example="1" id="songs_to_delete">%d</xliff:g> song was deleted.</string>
+    <string name="number_songs_delete"><xliff:g id="songs_to_delete">%d</xliff:g> songs were deleted.</string>
+
+
+    <string name="app_name">Listener</string>
+    <string name="combine_two_strings" translatable="false">%1$s | %2$s</string>
+    <string name="durationformatshort" translatable="false"><xliff:g id="format">%2$d:%3$02d</xliff:g></string>
+    <string name="durationformatlong" translatable="false"><xliff:g id="format">%1$d:%2$02d:%3$02d</xliff:g></string>
+
+    <string name="load_artist_fail">load artist error</string>
+    <string name="play_next">Play next</string>
+    <string name="add_to_queue">Add to queue</string>
+    <string name="add_to_playlist">Add to playlist</string>
+    <string name="go_to_album">Go to album</string>
+    <string name="go_to_artist">Go to artist</string>
+    <string name="delete_from_device">Delete from device</string>
+    <string name="content_empty_default">Nothing here</string>
+    <string name="new_playlist">New playlist</string>
+    <string name="playlistArt">playlist_art</string>
+    <string name="play_ranking">Play Ranking</string>
+    <string name="repeat_current">Repeat Current</string>
+    <string name="repeat_all">Repeat All</string>
+    <string name="shuffle_all">Shuffle All</string>
+    <string name="add_favorite_success">Add Favourite Song Success</string>
+    <string name="add_favorite_fail">Add Favourite Song Fail</string>
+    <string name="remove_favorite_success">Remove Favourite Song Success</string>
+    <string name="remove_favorite_fail">Remove Favourite Song Fail</string>
+    <string name="create_new_playlist">Create new playlist</string>
+    <string name="create">Create</string>
+    <string name="cancel">Cancel</string>
+    <string name="playlist_name">Enter playlist name</string>
+    <string name="set_play_next_success">set play next success</string>
+    <string name="create_playlist_success">create playlist success</string>
+    <string name="create_playlist_fail">create playlist fail</string>
+    <string name="delete_song">Delete song</string>
+    <string name="delete">Delete</string>
+    <string name="sort_order_add_time">Added Time</string>
+    <string name="rename">Rename</string>
+    <string name="rename_playlist">Rename</string>
+    <string name="rename_playlist_success">Rename Success</string>
+    <string name="delete_playlist">Delete playlist</string>
+    <string name="delete_playlist_success">Delete Playlist Success</string>
+    <string name="delete_playlist_song">Delete Song From Playlist</string>
+    <string name="delete_folder">Delete Folder</string>
+    <string name="delete_song_favourate">Delete Song From Favourate</string>
+    <string name="delete_song_recentlyplay">Delete Song From Recently Play</string>
+    <string name="clear_song_queue">Remove Song From Quene</string>
+    <string name="remove_recentlyplay_success">Delete Song From Recentyl Play Success</string>
+    <string name="color">Color</string>
+    <string name="sure">Sure</string>
+</resources>

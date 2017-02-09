@@ -1,0 +1,101 @@
+<resources>
+
+    <attr format="reference" name="cardStyle"/>
+    <attr format="reference" name="ttItemPopupMenuStyle" />
+    <attr format="reference" name="album_default_palette_color" />
+    <attr format="reference" name="default_album_drawable" />
+    <attr format="reference" name="default_singer_drawable" />
+    <attr format="reference" name="divider_color" />
+    <attr format="reference" name="ttPopupMenuStyle" />
+    <attr format="reference" name="selectableItemBackground"/>
+
+    <style name="ThemeBaseLight" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="cardStyle">@style/CardViewStyle.Light</item>
+        <item name="ate_key">light_theme</item>
+        <item name="android:windowBackground">@color/window_background</item>
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
+        <item name="android:textColorPrimary">@color/colorPrimaryTextBlack</item>
+        <item name="android:textColorSecondary">@color/colorSubTextBlack</item>
+        <item name="album_default_palette_color">@color/album_default_palette_color_light</item>
+        <item name="default_album_drawable">@drawable/icon_album_default</item>
+        <item name="default_singer_drawable">@drawable/icon_singer_default</item>
+        <item name="ttPopupMenuStyle">@style/AppTheme.PopupOverlay</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="ThemeBaseDark" parent="Theme.AppCompat.NoActionBar">
+        <item name="cardStyle">@style/CardViewStyle.Dark</item>
+        <item name="ate_key">dark_theme</item>
+        <item name="android:windowBackground">@color/window_background_dark</item>
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/colorSubTextWhite</item>
+        <item name="album_default_palette_color">@color/album_default_palette_color_dark</item>
+        <item name="default_album_drawable">@drawable/icon_album_dark</item>
+        <item name="default_singer_drawable">@drawable/icon_singer_dark</item>
+        <item name="ttPopupMenuStyle">@style/AppTheme.PopupOverlay.Dark</item>
+        <item name="colorPrimary">@color/colorPrimaryDarkTheme</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkDarkTheme</item>
+        <item name="colorAccent">@color/colorAccentDarkTheme</item>
+    </style>
+
+    <style name="AppThemeLight" parent="ThemeBaseLight"/>
+    <style name="AppThemeDark" parent="ThemeBaseDark"/>
+
+    <style name="AppTheme.PopupOverlay" parent="@style/ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay.Dark" parent="@style/ThemeOverlay.AppCompat.Dark" />
+
+    <style name="TextApperance.Album.Title" parent="@style/TextAppearance.AppCompat.Large">
+        <item name="android:textSize">29sp</item>
+    </style>
+
+    <style name="TextApperance.Artist.Title" parent="@style/TextAppearance.AppCompat.Large">
+        <item name="android:textSize">29sp</item>
+    </style>
+
+    <style name="FabStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">16dp</item>
+        <item name="borderWidth">0dp</item>
+        <item name="elevation">6dp</item>
+        <item name="pressedTranslationZ">12dp</item>
+        <item name="rippleColor">@android:color/white</item>
+    </style>
+
+    <style name="CardViewStyle.Light" parent="CardView">
+        <item name="cardBackgroundColor">@color/window_background</item>
+    </style>
+
+    <style name="CardViewStyle.Dark" parent="CardView">
+        <item name="cardBackgroundColor">@color/window_background_dark</item>
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_up_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_down_bottom</item>
+    </style>
+
+    <style name="ListItemTitleStyle" parent="@style/TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="ListItemSubTitleStyle" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingExtra">0.0px</item>
+    </style>
+
+    <style name="AnimationActivity" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_left</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+    </style>
+
+</resources>

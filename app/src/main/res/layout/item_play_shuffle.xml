@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:background="?attr/selectableItemBackground"
+              android:orientation="horizontal"
+              android:paddingLeft="16dp">
+
+    <ImageView
+        android:id="@+id/play_shuffle"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_shuffle_white_36dp"
+        android:tint="?colorAccent"
+        android:layout_gravity="center_vertical"
+        android:tag="tint_accent_color"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:text="@string/play_shuffle"
+        style="@style/TextAppearance.AppCompat.Body2"
+        android:id="@+id/textView"
+        android:layout_gravity="center_vertical"/>
+
+</LinearLayout>

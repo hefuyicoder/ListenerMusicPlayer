@@ -1,0 +1,23 @@
+<resources>
+
+    <dimen name="spacing_card">16dp</dimen>
+    <dimen name="spacing_card_album_grid">4dp</dimen>
+
+    <dimen name="sliding_up_header">55dp</dimen>
+    <dimen name="text_vertical_divider_height">8.0dip</dimen>
+    <dimen name="linear_layout_list_text_line_space">6.0dip</dimen>
+    <dimen name="gird_layout_list_subtitle_2_max_width">80.0dip</dimen>
+    <dimen name="grid_layout_list_item_info_height">70.0dip</dimen>
+    <dimen name="linear_layout_list_item_padding">16.0dip</dimen>
+    <dimen name="grid_layout_list_text_line_space">10.0dip</dimen>
+    <dimen name="gird_layout_list_subtitle_max_width">80.0dip</dimen>
+    <dimen name="linear_layout_list_item_height">72.0dip</dimen>
+    <dimen name="linear_layout_list_item_image_size">40.0dip</dimen>
+    <dimen name="linear_layout_list_subtitle_max_width">140.0dip</dimen>
+    <dimen name="linear_layout_list_subtitle_2_max_width">140.0dip</dimen>
+    <dimen name="tablayout_indicator_size_min">80.0dip</dimen>
+    <dimen name="tablayout_indicator_size_max">85.0dip</dimen>
+
+
+
+</resources>
