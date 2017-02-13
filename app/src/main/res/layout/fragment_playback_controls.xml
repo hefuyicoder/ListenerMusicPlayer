@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:minHeight="4dp"
-            android:progress="30"
+            android:progress="0"
             android:progressTint="?colorAccent"/>
 
         <TextView
