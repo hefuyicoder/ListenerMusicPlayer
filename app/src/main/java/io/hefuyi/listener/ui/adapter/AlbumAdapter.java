@@ -101,12 +101,6 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ItemHolder> 
                                     Palette.Swatch swatch = ColorUtil.getMostPopulousSwatch(palette);
                                     if (swatch != null) {
                                         int color = swatch.getRgb();
-                                        boolean isLight = ColorUtil.isColorLight(color);
-                                        if (isLight) {
-                                            color = ColorUtil.getDarkenColor(color);
-                                        } else {
-                                            color = ColorUtil.getLightenColor(color);
-                                        }
                                         itemHolder.footer.setBackgroundColor(color);
 
                                         int detailColor = swatch.getTitleTextColor();

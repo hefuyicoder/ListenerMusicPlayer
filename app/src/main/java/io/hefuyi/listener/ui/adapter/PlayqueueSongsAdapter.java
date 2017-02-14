@@ -64,6 +64,13 @@ public class PlayqueueSongsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             itemHolder.title.setTextColor(mSwatch.getBodyTextColor());
             itemHolder.artist.setTextColor(mSwatch.getTitleTextColor());
             itemHolder.album.setTextColor(mSwatch.getTitleTextColor());
+
+            if (MusicPlayer.getQueuePosition() == position) {
+                itemHolder.playIndicator.setVisibility(View.VISIBLE);
+                itemHolder.playIndicator.setBackgroundColor(ColorUtil.getBlackWhiteColor(mSwatch.getRgb()));
+            } else {
+                itemHolder.playIndicator.setVisibility(View.GONE);
+            }
         }
 
         Glide.with(holder.itemView.getContext()).load(ListenerUtil.getAlbumArtUri(localItem.albumId).toString())
@@ -71,13 +78,6 @@ public class PlayqueueSongsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 .placeholder(ATEUtil.getDefaultAlbumDrawable(mContext))
                 .centerCrop()
                 .into(itemHolder.albumArt);
-
-        if (MusicPlayer.getQueuePosition() == position) {
-            itemHolder.playIndicator.setVisibility(View.VISIBLE);
-            itemHolder.playIndicator.setBackgroundColor(ColorUtil.getBlackWhiteColor(mSwatch.getRgb()));
-        } else {
-            itemHolder.playIndicator.setVisibility(View.GONE);
-        }
     }
 
     @Override

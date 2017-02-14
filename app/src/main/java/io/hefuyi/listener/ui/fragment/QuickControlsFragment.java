@@ -17,6 +17,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.graphics.Palette;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -427,16 +428,18 @@ public class QuickControlsFragment extends Fragment implements QuickControlsCont
     @Override
     public void setAlbumArt(Drawable albumArt) {
         mAlbumArt.setImageDrawable(albumArt);
-        mAlbumArt.setForeground(null);
-        TypedValue paletteColor = new TypedValue();
-        getContext().getTheme().resolveAttribute(R.attr.album_default_palette_color, paletteColor, true);
-        topContainer.setBackgroundColor(paletteColor.data);
-        mPlayPauseView.setDrawableColor(ATEUtil.getThemeAccentColor(getActivity()));
-        mPlayPauseView.setEnabled(false);
-        next.setEnabled(false);
-        next.setColor(ATEUtil.getThemeAccentColor(getContext()));
-        if (sListener != null) {
-            sListener.onPaletteColorChange(paletteColor.data, ATEUtil.getThemeAccentColor(getActivity()));
+        if (TextUtils.isEmpty(MusicPlayer.getTrackName()) && TextUtils.isEmpty(MusicPlayer.getArtistName())) {
+            mAlbumArt.setForeground(null);
+            TypedValue paletteColor = new TypedValue();
+            getContext().getTheme().resolveAttribute(R.attr.album_default_palette_color, paletteColor, true);
+            topContainer.setBackgroundColor(paletteColor.data);
+            mPlayPauseView.setDrawableColor(ATEUtil.getThemeAccentColor(getActivity()));
+            mPlayPauseView.setEnabled(false);
+            next.setEnabled(false);
+            next.setColor(ATEUtil.getThemeAccentColor(getContext()));
+            if (sListener != null) {
+                sListener.onPaletteColorChange(paletteColor.data, ATEUtil.getThemeAccentColor(getActivity()));
+            }
         }
     }
 
@@ -455,13 +458,7 @@ public class QuickControlsFragment extends Fragment implements QuickControlsCont
         mSwatch = ColorUtil.getMostPopulousSwatch(palette);
         int paletteColor;
         if (mSwatch != null) {
-            int color = mSwatch.getRgb();
-            boolean isLight = ColorUtil.isColorLight(color);
-            if (isLight) {
-                paletteColor = ColorUtil.getDarkenColor(color);
-            } else {
-                paletteColor = ColorUtil.getLightenColor(color);
-            }
+            paletteColor = mSwatch.getRgb();
             int artistColor = mSwatch.getTitleTextColor();
             mTitle.setTextColor(ColorUtil.getOpaqueColor(artistColor));
             mArtist.setTextColor(artistColor);

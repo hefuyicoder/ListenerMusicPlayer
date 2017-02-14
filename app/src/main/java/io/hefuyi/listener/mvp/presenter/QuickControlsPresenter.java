@@ -1,9 +1,11 @@
 package io.hefuyi.listener.mvp.presenter;
 
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v7.graphics.Palette;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -124,8 +126,8 @@ public class QuickControlsPresenter implements QuickControlsContract.Presenter {
             }
         }
 
-        String title = MusicPlayer.getTrackName();
-        String artist = MusicPlayer.getArtistName();
+        final String title = MusicPlayer.getTrackName();
+        final String artist = MusicPlayer.getArtistName();
         mView.setTitle(title);
         mView.setArtist(artist);
 
@@ -139,6 +141,14 @@ public class QuickControlsPresenter implements QuickControlsContract.Presenter {
                         @Override
                         public void onLoadFailed(Exception e, Drawable errorDrawable) {
                             mView.setAlbumArt(errorDrawable);
+                            if (!TextUtils.isEmpty(title) || !TextUtils.isEmpty(artist)) {
+                                new Palette.Builder(((BitmapDrawable) errorDrawable).getBitmap()).generate(new Palette.PaletteAsyncListener() {
+                                    @Override
+                                    public void onGenerated(Palette palette) {
+                                        mView.setPalette(palette);
+                                    }
+                                });
+                            }
                         }
 
                         @Override

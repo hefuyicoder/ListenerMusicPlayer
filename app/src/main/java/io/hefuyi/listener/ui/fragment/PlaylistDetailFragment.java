@@ -300,12 +300,6 @@ public class PlaylistDetailFragment extends Fragment implements PlaylistDetailCo
                 Palette.Swatch swatch = ColorUtil.getMostPopulousSwatch(palette);
                 if (swatch != null) {
                     int color = swatch.getRgb();
-                    boolean isLight = ColorUtil.isColorLight(color);
-                    if (isLight) {
-                        color = ColorUtil.getDarkenColor(color);
-                    } else {
-                        color = ColorUtil.getLightenColor(color);
-                    }
                     collapsingToolbarLayout.setContentScrimColor(color);
                     collapsingToolbarLayout.setStatusBarScrimColor(ColorUtil.getStatusBarColor(color));
                     primaryColor = color;
