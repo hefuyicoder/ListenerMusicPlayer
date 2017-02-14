@@ -25,6 +25,7 @@ import io.hefuyi.listener.injector.module.ApplicationModule;
 import io.hefuyi.listener.injector.module.NetworkModule;
 import io.hefuyi.listener.mvp.model.Song;
 import io.hefuyi.listener.permission.PermissionManager;
+import io.hefuyi.listener.util.ListenerUtil;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
@@ -100,36 +101,37 @@ public class ListenerApp extends Application {
     private void updataMedia() {
         //版本号的判断  4.4为分水岭，发送广播更新媒体库
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (PermissionManager.checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                SongLoader.getAllSongs(this)
-                        .map(new Func1<List<Song>, String[]>() {
-                            @Override
-                            public String[] call(List<Song> songList) {
-                                List<String> folderPath = new ArrayList<String>();
-                                int i = 0;
-                                for (Song song : songList) {
-                                    folderPath.add(i, song.path);
-                                    i++;
-                                }
-                                return folderPath.toArray(new String[0]);
-                            }
-                        })
-                        .subscribeOn(Schedulers.io())
-                        .subscribe(new Action1<String[]>() {
-                            @Override
-                            public void call(String[] paths) {
-                                MediaScannerConnection.scanFile(getContext(), paths, null,
-                                        new MediaScannerConnection.OnScanCompletedListener() {
-                                            @Override
-                                            public void onScanCompleted(String path, Uri uri) {
-                                                if (uri == null) {
-                                                    RxBus.getInstance().post(new MediaUpdateEvent());
-                                                }
-                                            }
-                                        });
-                            }
-                        });
+            if (ListenerUtil.isMarshmallow() && !PermissionManager.checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                return;
             }
+            SongLoader.getAllSongs(this)
+                    .map(new Func1<List<Song>, String[]>() {
+                        @Override
+                        public String[] call(List<Song> songList) {
+                            List<String> folderPath = new ArrayList<String>();
+                            int i = 0;
+                            for (Song song : songList) {
+                                folderPath.add(i, song.path);
+                                i++;
+                            }
+                            return folderPath.toArray(new String[0]);
+                        }
+                    })
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(new Action1<String[]>() {
+                        @Override
+                        public void call(String[] paths) {
+                            MediaScannerConnection.scanFile(getContext(), paths, null,
+                                    new MediaScannerConnection.OnScanCompletedListener() {
+                                        @Override
+                                        public void onScanCompleted(String path, Uri uri) {
+                                            if (uri == null) {
+                                                RxBus.getInstance().post(new MediaUpdateEvent());
+                                            }
+                                        }
+                                    });
+                        }
+                    });
         } else {
             sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://"
                     + Environment.getExternalStorageDirectory())));

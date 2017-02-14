@@ -931,7 +931,7 @@ public class MusicService extends Service {
 
 
             if (minNumPlays > 0 && numTracksWithMinNumPlays == numTracks
-                    && mRepeatMode != REPEAT_ALL && !force) { //??全部歌曲播放次数一样,播放模式为不循环或者循环当前
+                    && mRepeatMode != REPEAT_ALL && !force) {
                 return -1; //当前模式为不循环,不选取下一首歌曲
             }
 
@@ -1224,7 +1224,7 @@ public class MusicService extends Service {
                 .setWhen(mNotificationPostTime)
                 .addAction(R.drawable.ic_skip_previous_white_36dp,
                         "",
-                        retrievePlaybackAction(PREVIOUS_FORCE_ACTION))
+                        retrievePlaybackAction(PREVIOUS_ACTION))
                 .addAction(playButtonResId, "",
                         retrievePlaybackAction(TOGGLEPAUSE_ACTION))
                 .addAction(R.drawable.ic_skip_next_white_36dp,
@@ -1320,7 +1320,7 @@ public class MusicService extends Service {
             }
             synchronized (this) {
                 closeCursor();
-                mOpenFailedCounter = 20; //??
+                mOpenFailedCounter = 20;
                 openCurrentAndNext();
             }
             if (!mPlayer.isInitialized()) { //说明setDataSource出现问题
@@ -1412,7 +1412,7 @@ public class MusicService extends Service {
                 }
                 try {
                     if (mCursor != null && shouldAddToPlaylist) {
-                        mPlaylist.clear();//??
+                        mPlaylist.clear();
                         mPlaylist.add(new MusicPlaybackTrack(
                                 mCursor.getLong(IDCOLIDX), -1, ListenerUtil.IdType.NA, -1));
                         notifyChange(QUEUE_CHANGED);
@@ -1973,7 +1973,7 @@ public class MusicService extends Service {
             setIsSupposedToBePlaying(true, true);
 
             cancelShutdown();
-            updateNotification(); //??多余
+            updateNotification();
             notifyChange(META_CHANGED);
         } else if (mPlaylist.size() <= 0) {
             setShuffleMode(SHUFFLE_AUTO);
@@ -2021,11 +2021,15 @@ public class MusicService extends Service {
                 scheduleDelayedShutdown();
                 return;
             }
-//            int pos = mNextPlayPos;
-//            if (pos < 0) {
-//                pos = getNextPosition(force);
-//            }
-            int pos = getNextPosition(force);
+            int pos;
+            if (force) {
+                pos = getNextPosition(force);
+            } else {
+                pos = mNextPlayPos;
+                if (pos < 0) {
+                    pos = getNextPosition(force);
+                }
+            }
 
             if (pos < 0) { //无法选取下一首歌
                 setIsSupposedToBePlaying(false, true);
@@ -2350,7 +2354,7 @@ public class MusicService extends Service {
                                 if (!service.isPlaying()
                                         && service.mPausedByTransientLossOfFocus) {
                                     service.mPausedByTransientLossOfFocus = false;
-                                    mCurrentVolume = 0f; //??
+                                    mCurrentVolume = 0f;
                                     service.mPlayer.setVolume(mCurrentVolume);
                                     service.play();
                                 } else {

@@ -15,10 +15,6 @@ import java.util.List;
 import io.hefuyi.listener.mvp.model.Song;
 import rx.Observable;
 
-/**
- * ??待优化
- */
-
 public class PlaylistSongLoader {
 
     public static Observable<List<Song>> getSongsInPlaylist(Context context, long playlistID) {

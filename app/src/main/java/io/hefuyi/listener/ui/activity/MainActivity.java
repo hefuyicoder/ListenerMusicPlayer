@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -378,7 +379,7 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
         String name = MusicPlayer.getTrackName();
         String artist = MusicPlayer.getArtistName();
 
-        if (TextUtils.isEmpty(name)||TextUtils.isEmpty(artist)) {
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(artist)) {
             songtitle.setText(R.string.app_name);
             songartist.setText("");
             Drawable defaultHeader = getResources().getDrawable(R.drawable.icon_drawer_theme_bg);
@@ -389,6 +390,8 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
             }
             albumart.setImageDrawable(defaultHeader);
             return;
+        } else {
+            albumart.getDrawable().clearColorFilter();
         }
 
         songtitle.setText(name);
@@ -396,9 +399,9 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
 
         Drawable defaultHeader = getResources().getDrawable(R.drawable.icon_drawer_theme_bg);
         if (ATEUtil.getATEKey(this).equals("light_theme")) {
-            albumart.getDrawable().setColorFilter(ATEUtil.getThemePrimaryColor(this), PorterDuff.Mode.DARKEN);
+            defaultHeader.setColorFilter(ATEUtil.getThemePrimaryColor(this), PorterDuff.Mode.DARKEN);
         } else {
-            albumart.getDrawable().setColorFilter(ATEUtil.getThemePrimaryColor(this), PorterDuff.Mode.MULTIPLY);
+            defaultHeader.setColorFilter(ATEUtil.getThemePrimaryColor(this), PorterDuff.Mode.MULTIPLY);
         }
 
         Glide.with(this).load(ListenerUtil.getAlbumArtUri(MusicPlayer.getCurrentAlbumId()).toString())

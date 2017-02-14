@@ -245,7 +245,7 @@ public class SongPlayCount {
 
                 // if the score is non-existant, then delete it
                 if (score < .01f) {
-                    deleteEntry(database, stringId); //什么情况会<0.1??
+                    deleteEntry(database, stringId);
                 } else {
                     // create the content values
                     ContentValues values = new ContentValues(NUM_WEEKS + 2);
