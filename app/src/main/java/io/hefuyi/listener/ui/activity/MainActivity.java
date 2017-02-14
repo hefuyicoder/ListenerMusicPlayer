@@ -14,7 +14,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -384,14 +383,12 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
             songartist.setText("");
             Drawable defaultHeader = getResources().getDrawable(R.drawable.icon_drawer_theme_bg);
             if (ATEUtil.getATEKey(this).equals("light_theme")) {
-                albumart.getDrawable().setColorFilter(ATEUtil.getThemePrimaryColor(this), PorterDuff.Mode.DARKEN);
+                defaultHeader.setColorFilter(ATEUtil.getThemePrimaryColor(this), PorterDuff.Mode.DARKEN);
             } else {
-                albumart.getDrawable().setColorFilter(ATEUtil.getThemePrimaryColor(this), PorterDuff.Mode.MULTIPLY);
+                defaultHeader.setColorFilter(ATEUtil.getThemePrimaryColor(this), PorterDuff.Mode.MULTIPLY);
             }
             albumart.setImageDrawable(defaultHeader);
             return;
-        } else {
-            albumart.getDrawable().clearColorFilter();
         }
 
         songtitle.setText(name);
