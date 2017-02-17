@@ -82,14 +82,14 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ItemHolder> 
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                        int textColorPrimary = mContext.getResources().getColor(android.R.color.primary_text_light);
-                        int textColorSecondary = mContext.getResources().getColor(android.R.color.secondary_text_light);
+                        if (isGrid) {
+                            itemHolder.footer.setBackgroundColor(ATEUtil.getThemeAlbumDefaultPaletteColor(mContext));
+                        }
                         itemHolder.albumArt.setImageDrawable(ATEUtil.getDefaultAlbumDrawable(mContext));
-                        itemHolder.title.setTextColor(textColorPrimary);
-                        itemHolder.artist.setTextColor(textColorSecondary);
-                        itemHolder.songcount.setTextColor(textColorSecondary);
+                        itemHolder.title.setTextColor(ATEUtil.getThemeTextColorPrimary(mContext));
+                        itemHolder.artist.setTextColor(ATEUtil.getThemeTextColorSecondly(mContext));
+                        itemHolder.songcount.setTextColor(ATEUtil.getThemeTextColorSecondly(mContext));
                         itemHolder.popupMenu.setColorFilter(mContext.getResources().getColor(R.color.background_floating_material_dark));
-                        itemHolder.footer.setBackgroundColor(mContext.getResources().getColor(R.color.album_default_palette_color_light));
                     }
 
                     @Override
