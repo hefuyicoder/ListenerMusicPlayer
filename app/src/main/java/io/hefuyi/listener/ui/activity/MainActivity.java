@@ -260,7 +260,7 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
             if (PermissionManager.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 Snackbar.make(panelLayout, "Listener will need to read external storage to display songs on your device.",
                         Snackbar.LENGTH_INDEFINITE)
-                        .setAction("OK", new View.OnClickListener() {
+                        .setAction(android.R.string.ok, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 PermissionManager.askForPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE, permissionReadstorageCallback);
