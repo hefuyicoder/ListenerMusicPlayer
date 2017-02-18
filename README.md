@@ -28,6 +28,12 @@ A grace open source music player which following the google material design. Usi
 - 动态刷新媒体库，及时获知媒体文件变更
 - 日夜间模式切换，支持动态换肤
 
+### Download
+
+- [demo apk](https://fir.im/listener)
+
+ ![download png](materials/download.png)
+
 ### Thanks
 
 Thanks to these projects and libraries:
