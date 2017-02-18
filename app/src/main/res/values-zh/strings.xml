@@ -101,4 +101,6 @@
     <string name="remove_recentlyplay_success">删除最近播放歌曲成功</string>
     <string name="color">色彩</string>
     <string name="sure">确定</string>
+    <string name="playlistArt">playlist_art</string>
+
 </resources>
