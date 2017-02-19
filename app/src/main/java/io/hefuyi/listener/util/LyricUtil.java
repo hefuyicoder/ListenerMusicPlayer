@@ -23,11 +23,11 @@ public class LyricUtil {
         FileWriter writer = null;
         try {
             File file = new File(getLrcPath(title, artist));
-            if (!file.exists()) {
-                file.createNewFile();
-                writer = new FileWriter(getLrcPath(title, artist));
-                writer.write(lrcContext);
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
             }
+            writer = new FileWriter(getLrcPath(title, artist));
+            writer.write(lrcContext);
             return file;
         } catch (IOException e) {
             e.printStackTrace();
