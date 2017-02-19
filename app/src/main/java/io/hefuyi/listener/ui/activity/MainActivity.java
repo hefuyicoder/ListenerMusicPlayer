@@ -1,13 +1,15 @@
 package io.hefuyi.listener.ui.activity;
 
-import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -25,6 +27,7 @@ import com.bumptech.glide.Glide;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -35,8 +38,6 @@ import io.hefuyi.listener.R;
 import io.hefuyi.listener.RxBus;
 import io.hefuyi.listener.event.MetaChangedEvent;
 import io.hefuyi.listener.listener.PanelSlideListener;
-import io.hefuyi.listener.permission.PermissionCallback;
-import io.hefuyi.listener.permission.PermissionManager;
 import io.hefuyi.listener.ui.fragment.AlbumDetailFragment;
 import io.hefuyi.listener.ui.fragment.ArtistDetailFragment;
 import io.hefuyi.listener.ui.fragment.FoldersFragment;
@@ -46,12 +47,18 @@ import io.hefuyi.listener.ui.fragment.PlaylistFragment;
 import io.hefuyi.listener.ui.fragment.SearchFragment;
 import io.hefuyi.listener.util.ATEUtil;
 import io.hefuyi.listener.util.ListenerUtil;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
-public class MainActivity extends BaseActivity implements ATEActivityThemeCustomizer {
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static pub.devrel.easypermissions.AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE;
+
+public class MainActivity extends BaseActivity implements ATEActivityThemeCustomizer, EasyPermissions.PermissionCallbacks {
 
     @BindView(R.id.sliding_layout)
     SlidingUpPanelLayout panelLayout;
@@ -71,17 +78,7 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
     private boolean listenerSeted = false;
     private boolean isDarkTheme;
 
-    private final PermissionCallback permissionReadstorageCallback = new PermissionCallback() {
-        @Override
-        public void permissionGranted() {
-            loadEverything();
-        }
 
-        @Override
-        public void permissionRefused() {
-            finish();
-        }
-    };
     private Runnable navigateLibrary = new Runnable() {
         public void run() {
             navigationView.getMenu().findItem(R.id.nav_library).setChecked(true);
@@ -211,11 +208,7 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
         }, 700);
 
 
-        if (ListenerUtil.isMarshmallow()) {
-            checkPermissionAndThenLoad();
-        } else {
-            loadEverything();
-        }
+        requirePermissions();
 
         addBackstackListener();
 
@@ -252,26 +245,6 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
         }
 
         new initQuickControls().execute("");
-    }
-
-    private void checkPermissionAndThenLoad() {
-        //check for permission
-        if (PermissionManager.checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            loadEverything();
-        } else {
-            if (PermissionManager.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                Snackbar.make(panelLayout, "Listener will need to read external storage to display songs on your device.",
-                        Snackbar.LENGTH_INDEFINITE)
-                        .setAction(android.R.string.ok, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                PermissionManager.askForPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE, permissionReadstorageCallback);
-                            }
-                        }).show();
-            } else {
-                PermissionManager.askForPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE, permissionReadstorageCallback);
-            }
-        }
     }
 
     /**
@@ -490,14 +463,72 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
     }
 
     @Override
-    public void onRequestPermissionsResult(
-            int requestCode, String[] permissions, int[] grantResults) {
-        PermissionManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
-    @Override
     public int getActivityTheme() {
         return isDarkTheme ? R.style.AppThemeDark : R.style.AppThemeLight;
     }
 
+    private static final int RC_PERMISSIONS = 123;
+
+    @SuppressLint("InlinedApi")
+    private boolean hasPermissions() {
+        return EasyPermissions.hasPermissions(this, READ_EXTERNAL_STORAGE);
+    }
+
+
+    @SuppressLint("InlinedApi")
+    @AfterPermissionGranted(RC_PERMISSIONS)
+    private void requirePermissions() {
+        if (hasPermissions()) {
+            loadEverything();
+        } else {
+            // Ask for one permission
+            EasyPermissions.requestPermissions(this,
+                                               getString(R.string.permission_relation_text),
+                                               RC_PERMISSIONS,
+                                               READ_EXTERNAL_STORAGE);
+        }
+    }
+
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        loadEverything();
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        permissionsDeniedOpenSetting();
+    }
+
+
+    private void permissionsDeniedOpenSetting() {
+        if (!hasPermissions()) {
+            new AppSettingsDialog.Builder(this).setPositiveButton(R.string.permission_setting).setNegativeButton(getString(R.string.level_app), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    ActivityCompat.finishAffinity(MainActivity.this);
+                }
+            }).build().show();
+        } else {
+            loadEverything();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case DEFAULT_SETTINGS_REQ_CODE:
+                permissionsDeniedOpenSetting();
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

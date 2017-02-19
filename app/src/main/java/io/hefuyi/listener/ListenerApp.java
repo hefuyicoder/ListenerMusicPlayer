@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StrictMode;
+import android.support.v4.content.ContextCompat;
 
 import com.afollestad.appthemeengine.ATE;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -24,11 +25,12 @@ import io.hefuyi.listener.injector.component.DaggerApplicationComponent;
 import io.hefuyi.listener.injector.module.ApplicationModule;
 import io.hefuyi.listener.injector.module.NetworkModule;
 import io.hefuyi.listener.mvp.model.Song;
-import io.hefuyi.listener.permission.PermissionManager;
 import io.hefuyi.listener.util.ListenerUtil;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
+
+import static android.support.v4.content.PermissionChecker.PERMISSION_GRANTED;
 
 /**
  * Created by hefuyi on 2016/10/4.
@@ -50,7 +52,6 @@ public class ListenerApp extends Application {
 //        setStrictMode();
         setupInjector();
         initImageLoader();
-        PermissionManager.init(this);
         updataMedia();
         setupATE();
     }
@@ -101,7 +102,7 @@ public class ListenerApp extends Application {
     private void updataMedia() {
         //版本号的判断  4.4为分水岭，发送广播更新媒体库
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (ListenerUtil.isMarshmallow() && !PermissionManager.checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            if (ListenerUtil.isMarshmallow() && ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PERMISSION_GRANTED) {
                 return;
             }
             SongLoader.getAllSongs(this)

@@ -78,4 +78,7 @@ dependencies {
         transitive = true
     }
 
+    //Easypermission that simplifies permission-sys in the app.
+    compile 'pub.devrel:easypermissions:0.3.0'
+
 }
