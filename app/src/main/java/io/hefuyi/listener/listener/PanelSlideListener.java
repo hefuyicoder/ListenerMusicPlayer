@@ -56,7 +56,7 @@ public class PanelSlideListener implements SlidingUpPanelLayout.PanelSlideListen
     private static final String TAG = PanelSlideListener.class.getSimpleName();
 
     private final SlidingUpPanelLayout mPanelLayout;
-    private Context mContext;
+    private final Context mContext;
     private View nowPlayingCard;
     private RelativeLayout toolbar;
     private LinearLayout content;
@@ -120,7 +120,6 @@ public class PanelSlideListener implements SlidingUpPanelLayout.PanelSlideListen
     public PanelSlideListener(SlidingUpPanelLayout slidingUpPanelLayout) {
         mPanelLayout = slidingUpPanelLayout;
         nowPlayingCard = mPanelLayout.findViewById(R.id.topContainer);
-        if(nowPlayingCard == null) return;
         toolbar = (RelativeLayout) nowPlayingCard.findViewById(R.id.custom_toolbar);
         mContext = mPanelLayout.getContext();
         albumImage = (ForegroundImageView) nowPlayingCard.findViewById(R.id.album_art);

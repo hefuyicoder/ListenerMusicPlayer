@@ -5,7 +5,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v7.graphics.Palette;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -15,6 +14,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import java.io.File;
 
 import io.hefuyi.listener.MusicPlayer;
+import io.hefuyi.listener.R;
 import io.hefuyi.listener.mvp.contract.QuickControlsContract;
 import io.hefuyi.listener.mvp.usecase.GetLyric;
 import io.hefuyi.listener.util.ATEUtil;
@@ -128,8 +128,13 @@ public class QuickControlsPresenter implements QuickControlsContract.Presenter {
 
         final String title = MusicPlayer.getTrackName();
         final String artist = MusicPlayer.getArtistName();
-        mView.setTitle(title);
-        mView.setArtist(artist);
+        if (TextUtils.isEmpty(title) || TextUtils.isEmpty(artist)) {
+            mView.setTitle(mView.getContext().getResources().getString(R.string.app_name));
+            mView.setArtist("");
+        } else {
+            mView.setTitle(title);
+            mView.setArtist(artist);
+        }
 
         if (!mDuetoplaypause){
             Glide.with(mView.getContext())

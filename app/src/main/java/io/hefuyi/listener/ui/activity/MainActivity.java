@@ -238,7 +238,9 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
     protected void onDestroy() {
         super.onDestroy();
         RxBus.getInstance().unSubscribe(this);
-        RxBus.getInstance().unSubscribe(mPanelSlideListener);
+        if (mPanelSlideListener != null) {
+            RxBus.getInstance().unSubscribe(mPanelSlideListener);
+        }
     }
 
     private void loadEverything() {
@@ -460,7 +462,7 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if (!listenerSeted) {
+        if (!listenerSeted && panelLayout.findViewById(R.id.topContainer) != null) {
             mPanelSlideListener = new PanelSlideListener(panelLayout);
             panelLayout.addPanelSlideListener(mPanelSlideListener);
             listenerSeted = true;
