@@ -107,4 +107,7 @@
     <string name="remove_recentlyplay_success">Delete Song From Recentyl Play Success</string>
     <string name="color">Color</string>
     <string name="sure">Sure</string>
+    <string name="level_app">Level app</string>
+    <string name="permission_setting">Set permission</string>
+    <string name="permission_relation_text">Listener will need to read external storage to display songs on your device.</string>
 </resources>

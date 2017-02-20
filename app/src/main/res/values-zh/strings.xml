@@ -102,5 +102,9 @@
     <string name="color">色彩</string>
     <string name="sure">确定</string>
     <string name="playlistArt">playlist_art</string>
-
+    <string name="level_app">离开应用</string>
+    <string name="permission_setting">开放权限</string>
+    <string name="permission_relation_text">本应用必须读取外部存储设备，请允许开放。</string>
+    <string name="rationale_ask_again">本应用必须读取外部存储设备，请允许开放。</string>
+    <string name="title_settings_dialog">权限开放请求</string>
 </resources>

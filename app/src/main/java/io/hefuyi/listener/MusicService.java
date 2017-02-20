@@ -36,6 +36,7 @@ import android.provider.MediaStore;
 import android.provider.MediaStore.Audio.AlbumColumns;
 import android.provider.MediaStore.Audio.AudioColumns;
 import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
@@ -57,7 +58,6 @@ import java.util.TimerTask;
 import java.util.TreeSet;
 
 import io.hefuyi.listener.mvp.model.MusicPlaybackTrack;
-import io.hefuyi.listener.permission.PermissionManager;
 import io.hefuyi.listener.provider.MusicPlaybackState;
 import io.hefuyi.listener.provider.RecentStore;
 import io.hefuyi.listener.provider.SongPlayCount;
@@ -65,6 +65,8 @@ import io.hefuyi.listener.receiver.MediaButtonIntentReceiver;
 import io.hefuyi.listener.util.ATEUtil;
 import io.hefuyi.listener.util.ListenerUtil;
 import io.hefuyi.listener.util.NavigationUtil;
+
+import static android.support.v4.content.PermissionChecker.PERMISSION_GRANTED;
 
 @SuppressLint("NewApi")
 public class MusicService extends Service {
@@ -541,7 +543,7 @@ public class MusicService extends Service {
 
     private int getCardId() {
         if (ListenerUtil.isMarshmallow()) {
-            if (PermissionManager.checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PERMISSION_GRANTED) {
                 return getmCardId();
             } else return 0;
         } else {
@@ -1287,7 +1289,7 @@ public class MusicService extends Service {
 
     private void reloadQueueAfterPermissionCheck() {
         if (ListenerUtil.isMarshmallow()) {
-            if (PermissionManager.checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PERMISSION_GRANTED) {
                 reloadQueue();
             }
         } else {
