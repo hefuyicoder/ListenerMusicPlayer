@@ -384,11 +384,7 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
             songtitle.setText(R.string.app_name);
             songartist.setText("");
             Drawable defaultHeader = getResources().getDrawable(R.drawable.icon_drawer_theme_bg);
-            if (ATEUtil.getATEKey(this).equals("light_theme")) {
-                defaultHeader.setColorFilter(ATEUtil.getThemePrimaryColor(this), PorterDuff.Mode.DARKEN);
-            } else {
-                defaultHeader.setColorFilter(ATEUtil.getThemePrimaryColor(this), PorterDuff.Mode.MULTIPLY);
-            }
+            defaultHeader.setColorFilter(ATEUtil.getThemePrimaryColor(this), PorterDuff.Mode.DARKEN);
             albumart.setImageDrawable(defaultHeader);
             return;
         }
@@ -397,11 +393,7 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
         songartist.setText(artist);
 
         Drawable defaultHeader = getResources().getDrawable(R.drawable.icon_drawer_theme_bg);
-        if (ATEUtil.getATEKey(this).equals("light_theme")) {
-            defaultHeader.setColorFilter(ATEUtil.getThemePrimaryColor(this), PorterDuff.Mode.DARKEN);
-        } else {
-            defaultHeader.setColorFilter(ATEUtil.getThemePrimaryColor(this), PorterDuff.Mode.MULTIPLY);
-        }
+        defaultHeader.setColorFilter(ATEUtil.getThemePrimaryColor(this), PorterDuff.Mode.DARKEN);
 
         Glide.with(this).load(ListenerUtil.getAlbumArtUri(MusicPlayer.getCurrentAlbumId()).toString())
                 .error(defaultHeader)
