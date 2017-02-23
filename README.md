@@ -39,7 +39,7 @@ Thanks to these projects and libraries:
 
 ### Statement
 
-感谢[轻听](https://play.google.com/store/apps/details?id=com.tencent.qqmusiclocalplayer)提供参考，轻听是一款十分良心的音乐播放器，本人使用了其中的部分素材，如构成侵权请及时通知我修改或删除。部分数据来自于干LastFM和酷狗歌词Api，一切数据解释权都归LastFM和酷狗所有。
+感谢[轻听](https://play.google.com/store/apps/details?id=com.tencent.qqmusiclocalplayer)提供参考，轻听是一款十分良心的音乐播放器，本人也非常喜欢，欢迎大家前往下载以获得更好的使用体验。本项目部分数据来自于干LastFM和酷狗歌词Api，一切数据解释权都归LastFM和酷狗所有。
 
 ### End
 
