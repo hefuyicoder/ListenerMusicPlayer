@@ -2,7 +2,6 @@ package io.hefuyi.listener.dataloader;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 
@@ -22,8 +21,6 @@ import rx.Subscriber;
  */
 
 public class SongLoader {
-
-    private static final long[] sEmptyList = new long[0];
 
     public static Observable<List<Song>> getSongsForCursor(final Cursor cursor) {
         return Observable.create(new Observable.OnSubscribe<List<Song>>() {
@@ -94,79 +91,8 @@ public class SongLoader {
         });
     }
 
-    private static Observable<Song> getSongForCursor(final Cursor cursor) {
-        return Observable.create(new Observable.OnSubscribe<Song>() {
-            @Override
-            public void call(Subscriber<? super Song> subscriber) {
-                Song song = new Song();
-                if ((cursor != null) && (cursor.moveToFirst())) {
-                    long id = cursor.getLong(0);
-                    String title = cursor.getString(1);
-                    String artist = cursor.getString(2);
-                    String album = cursor.getString(3);
-                    int duration = cursor.getInt(4);
-                    int trackNumber = cursor.getInt(5);
-                    long artistId = cursor.getInt(6);
-                    long albumId = cursor.getLong(7);
-                    String path = cursor.getString(8);
-
-                    song = new Song(id, albumId, artistId, title, artist, album, duration, trackNumber,path);
-                }
-
-                if (cursor != null){
-                    cursor.close();
-                }
-                subscriber.onNext(song);
-                subscriber.onCompleted();
-            }
-        });
-    }
-
-    public static long[] getSongListForCursor(Cursor cursor) {
-        if (cursor == null) {
-            return sEmptyList;
-        }
-        final int len = cursor.getCount();
-        final long[] list = new long[len];
-        cursor.moveToFirst();
-        int columnIndex = -1;
-        try {
-            columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Audio.Playlists.Members.AUDIO_ID);
-        } catch (final IllegalArgumentException notaplaylist) {
-            columnIndex = cursor.getColumnIndexOrThrow(BaseColumns._ID);
-        }
-        for (int i = 0; i < len; i++) {
-            list[i] = cursor.getLong(columnIndex);
-            cursor.moveToNext();
-        }
-        cursor.close();
-        cursor = null;
-        return list;
-    }
-
     public static Observable<List<Song>> getAllSongs(Context context) {
         return getSongsForCursor(makeSongCursor(context, null, null));
-    }
-
-    public static Observable<Song> getSongForID(Context context, long id) {
-        return getSongForCursor(makeSongCursor(context, "_id=" + String.valueOf(id), null));
-    }
-
-    public static Observable<List<Song>> getSongsForIDs(Context context, long[] ids) {
-        StringBuilder selection = new StringBuilder();
-        selection.append(BaseColumns._ID);
-        selection.append(" IN (");
-
-        for (int i = 0; i < ids.length - 1; i++) {
-            selection.append(ids[i]);
-            selection.append(",");
-        }
-        if (ids.length != 0) {
-            selection.append(ids[ids.length - 1]);
-        }
-        selection.append(")");
-
-        return getSongsForCursor(makeSongCursor(context, selection.toString(), null, null));
     }
 
     public static Observable<List<Song>> searchSongs(Context context, String searchString) {

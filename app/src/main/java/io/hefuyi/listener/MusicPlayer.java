@@ -3,7 +3,6 @@ package io.hefuyi.listener;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -13,15 +12,12 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.IBinder;
 import android.os.RemoteException;
-import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.WeakHashMap;
 
-import io.hefuyi.listener.dataloader.SongLoader;
-import io.hefuyi.listener.mvp.model.MusicPlaybackTrack;
 import io.hefuyi.listener.util.ListenerUtil;
 
 /**
@@ -74,10 +70,6 @@ public class MusicPlayer {
         }
     }
 
-    public static boolean isPlaybackServiceConnected() {
-        return mService != null;
-    }
-
     public static void next() {
         try {
             if (mService != null) {
@@ -104,12 +96,6 @@ public class MusicPlayer {
         }
     }
 
-    public static void asyncNext(final Context context) {
-        final Intent previous = new Intent(context, MusicService.class);
-        previous.setAction(MusicService.NEXT_ACTION);
-        context.startService(previous);
-    }
-
     public static void previous(final Context context, final boolean force) {
         final Intent previous = new Intent(context, MusicService.class);
         if (force) {
@@ -130,52 +116,6 @@ public class MusicPlayer {
                 }
             }
         } catch (final Exception ignored) {
-        }
-    }
-
-    public static void cycleRepeat() {
-        try {
-            if (mService != null) {
-                switch (mService.getRepeatMode()) {
-                    case MusicService.REPEAT_NONE:
-                        mService.setRepeatMode(MusicService.REPEAT_ALL);
-                        break;
-                    case MusicService.REPEAT_ALL:
-                        mService.setRepeatMode(MusicService.REPEAT_CURRENT);
-                        if (mService.getShuffleMode() != MusicService.SHUFFLE_NONE) {
-                            mService.setShuffleMode(MusicService.SHUFFLE_NONE);
-                        }
-                        break;
-                    default:
-                        mService.setRepeatMode(MusicService.REPEAT_NONE);
-                        break;
-                }
-            }
-        } catch (final RemoteException ignored) {
-        }
-    }
-
-    public static void cycleShuffle() {
-        try {
-            if (mService != null) {
-                switch (mService.getShuffleMode()) {
-                    case MusicService.SHUFFLE_NONE:
-                        mService.setShuffleMode(MusicService.SHUFFLE_NORMAL);
-                        if (mService.getRepeatMode() == MusicService.REPEAT_CURRENT) {
-                            mService.setRepeatMode(MusicService.REPEAT_ALL);
-                        }
-                        break;
-                    case MusicService.SHUFFLE_NORMAL:
-                        mService.setShuffleMode(MusicService.SHUFFLE_NONE);
-                        break;
-                    case MusicService.SHUFFLE_AUTO:
-                        mService.setShuffleMode(MusicService.SHUFFLE_NONE);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        } catch (final RemoteException ignored) {
         }
     }
 
@@ -279,46 +219,6 @@ public class MusicPlayer {
         return -1;
     }
 
-    public static MusicPlaybackTrack getCurrentTrack() {
-        if (mService != null) {
-            try {
-                return mService.getCurrentTrack();
-            } catch (final RemoteException ignored) {
-            }
-        }
-        return null;
-    }
-
-    public static MusicPlaybackTrack getTrack(int index) {
-        if (mService != null) {
-            try {
-                return mService.getTrack(index);
-            } catch (final RemoteException ignored) {
-            }
-        }
-        return null;
-    }
-
-    public static long getNextAudioId() {
-        if (mService != null) {
-            try {
-                return mService.getNextAudioId();
-            } catch (final RemoteException ignored) {
-            }
-        }
-        return -1;
-    }
-
-    public static long getPreviousAudioId() {
-        if (mService != null) {
-            try {
-                return mService.getPreviousAudioId();
-            } catch (final RemoteException ignored) {
-            }
-        }
-        return -1;
-    }
-
     public static long getCurrentArtistId() {
         if (mService != null) {
             try {
@@ -350,17 +250,6 @@ public class MusicPlayer {
         return sEmptyList;
     }
 
-    public static long getQueueItemAtPosition(int position) {
-        try {
-            if (mService != null) {
-                return mService.getQueueItemAtPosition(position);
-            } else {
-            }
-        } catch (final RemoteException ignored) {
-        }
-        return -1;
-    }
-
     public static int getQueueSize() {
         try {
             if (mService != null) {
@@ -382,15 +271,6 @@ public class MusicPlayer {
         return 0;
     }
 
-    public static void setQueuePosition(final int position) {
-        if (mService != null) {
-            try {
-                mService.setQueuePosition(position);
-            } catch (final RemoteException ignored) {
-            }
-        }
-    }
-
     public static void refresh() {
         try {
             if (mService != null) {
@@ -398,36 +278,6 @@ public class MusicPlayer {
             }
         } catch (final RemoteException ignored) {
         }
-    }
-
-    public static int getQueueHistorySize() {
-        if (mService != null) {
-            try {
-                return mService.getQueueHistorySize();
-            } catch (final RemoteException ignored) {
-            }
-        }
-        return 0;
-    }
-
-    public static int getQueueHistoryPosition(int position) {
-        if (mService != null) {
-            try {
-                return mService.getQueueHistoryPosition(position);
-            } catch (final RemoteException ignored) {
-            }
-        }
-        return -1;
-    }
-
-    public static int[] getQueueHistoryList() {
-        if (mService != null) {
-            try {
-                return mService.getQueueHistoryList();
-            } catch (final RemoteException ignored) {
-            }
-        }
-        return null;
     }
 
     public static int removeTrack(final long id) {
@@ -438,40 +288,6 @@ public class MusicPlayer {
         } catch (final RemoteException ingored) {
         }
         return 0;
-    }
-
-    public static boolean removeTrackAtPosition(final long id, final int position) {
-        try {
-            if (mService != null) {
-                return mService.removeTrackAtPosition(id, position);
-            }
-        } catch (final RemoteException ingored) {
-        }
-        return false;
-    }
-
-    public static void moveQueueItem(final int from, final int to) {
-        try {
-            if (mService != null) {
-                mService.moveQueueItem(from, to);
-            } else {
-            }
-        } catch (final RemoteException ignored) {
-        }
-    }
-
-    public static void playArtist(final Context context, final long artistId, int position, boolean shuffle) {
-        final long[] artistList = getSongListForArtist(context, artistId);
-        if (artistList != null) {
-            playAll(context, artistList, position, artistId, ListenerUtil.IdType.Artist, shuffle);
-        }
-    }
-
-    public static void playAlbum(final Context context, final long albumId, int position, boolean shuffle) {
-        final long[] albumList = getSongListForAlbum(context, albumId);
-        if (albumList != null) {
-            playAll(context, albumList, position, albumId, ListenerUtil.IdType.Album, shuffle);
-        }
     }
 
     public static void playAll(final Context context, final long[] list, int position,
@@ -522,143 +338,11 @@ public class MusicPlayer {
         }
     }
 
-    /**
-     * 本地所有歌曲随机播放
-     * @param context
-     */
-    public static void shuffleAll(final Context context) {
-        Cursor cursor = SongLoader.makeSongCursor(context, null, null);
-        final long[] mTrackList = SongLoader.getSongListForCursor(cursor);
-        final int position = 0;
-        if (mTrackList.length == 0 || mService == null) {
-            return;
-        }
-        try {
-            mService.setShuffleMode(MusicService.SHUFFLE_NORMAL);
-            final long mCurrentId = mService.getAudioId();
-            final int mCurrentQueuePosition = getQueuePosition();
-            if (mCurrentQueuePosition == position && mCurrentId == mTrackList[position]) {
-                final long[] mPlaylist = getQueue();
-                if (Arrays.equals(mPlaylist, mTrackList)) {
-                    mService.play();
-                    return;
-                }
-            }
-            mService.open(mTrackList, -1, -1, ListenerUtil.IdType.NA.mId);
-            mService.play();
-            cursor.close();
-            cursor = null;
-        } catch (final RemoteException ignored) {
-        }
-    }
-
-    /**
-     * 获取歌手所有歌曲的ID
-      * @param context context to use
-     * @param id artist id
-     * @return songs id
-     */
-    public static long[] getSongListForArtist(final Context context, final long id) {
-        final String[] projection = new String[]{
-                BaseColumns._ID
-        };
-        final String selection = MediaStore.Audio.AudioColumns.ARTIST_ID + "=" + id + " AND "
-                + MediaStore.Audio.AudioColumns.IS_MUSIC + "=1";
-        Cursor cursor = context.getContentResolver().query(
-                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, projection, selection, null,
-                MediaStore.Audio.AudioColumns.ALBUM_KEY + "," + MediaStore.Audio.AudioColumns.TRACK);
-        if (cursor != null) {
-            final long[] mList = SongLoader.getSongListForCursor(cursor);
-            cursor.close();
-            cursor = null;
-            return mList;
-        }
-        return sEmptyList;
-    }
-
-    /**
-     * 获取专辑中所有曲目的ID
-     * @param context context to use
-     * @param id album id
-     * @return songs id
-     */
-    public static long[] getSongListForAlbum(final Context context, final long id) {
-        final String[] projection = new String[]{
-                BaseColumns._ID
-        };
-        final String selection = MediaStore.Audio.AudioColumns.ALBUM_ID + "=" + id + " AND " + MediaStore.Audio.AudioColumns.IS_MUSIC
-                + "=1";
-        Cursor cursor = context.getContentResolver().query(
-                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, projection, selection, null,
-                MediaStore.Audio.AudioColumns.TRACK + ", " + MediaStore.Audio.Media.DEFAULT_SORT_ORDER);
-        if (cursor != null) {
-            final long[] mList = SongLoader.getSongListForCursor(cursor);
-            cursor.close();
-            cursor = null;
-            return mList;
-        }
-        return sEmptyList;
-    }
-
-    public static int getSongCountForAlbumInt(final Context context, final long id) {
-        int songCount = 0;
-        if (id == -1) {
-            return songCount;
-        }
-
-        Uri uri = ContentUris.withAppendedId(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI, id);
-        Cursor cursor = context.getContentResolver().query(uri,
-                new String[]{MediaStore.Audio.AlbumColumns.NUMBER_OF_SONGS}, null, null, null);
-        if (cursor != null) {
-            cursor.moveToFirst();
-            if (!cursor.isAfterLast()) {
-                if (!cursor.isNull(0)) {
-                    songCount = cursor.getInt(0);
-                }
-            }
-            cursor.close();
-            cursor = null;
-        }
-
-        return songCount;
-    }
-
-    public static String getReleaseDateForAlbum(final Context context, final long id) {
-        if (id == -1) {
-            return null;
-        }
-        Uri uri = ContentUris.withAppendedId(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI, id);
-        Cursor cursor = context.getContentResolver().query(uri, new String[]{
-                MediaStore.Audio.AlbumColumns.FIRST_YEAR
-        }, null, null, null);
-        String releaseDate = null;
-        if (cursor != null) {
-            cursor.moveToFirst();
-            if (!cursor.isAfterLast()) {
-                releaseDate = cursor.getString(0);
-            }
-            cursor.close();
-            cursor = null;
-        }
-        return releaseDate;
-    }
-
     public static void seek(final long position) {
         if (mService != null) {
             try {
                 mService.seek(position);
             } catch (final RemoteException ignored) {
-            }
-        }
-    }
-
-    public static void seekRelative(final long deltaInMs) {
-        if (mService != null) {
-            try {
-                mService.seekRelative(deltaInMs);
-            } catch (final RemoteException ignored) {
-            } catch (final IllegalStateException ignored) {
-
             }
         }
     }

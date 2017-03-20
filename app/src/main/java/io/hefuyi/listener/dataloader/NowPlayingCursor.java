@@ -43,8 +43,6 @@ public class NowPlayingCursor extends AbstractCursor {
 
     private int mSize;
 
-    private int mCurPos;
-
     private Cursor mQueueCursor;
 
 
@@ -71,7 +69,6 @@ public class NowPlayingCursor extends AbstractCursor {
         final long id = mNowPlaying[newPosition];
         final int cursorIndex = Arrays.binarySearch(mCursorIndexes, id);
         mQueueCursor.moveToPosition(cursorIndex);
-        mCurPos = newPosition;
         return true;
     }
 
@@ -203,7 +200,6 @@ public class NowPlayingCursor extends AbstractCursor {
             mQueueCursor.moveToNext();
         }
         mQueueCursor.moveToFirst();
-        mCurPos = -1;
 
         int removed = 0;
         for (int i = mNowPlaying.length - 1; i >= 0; i--) { //遍历播放列表中歌曲的ID

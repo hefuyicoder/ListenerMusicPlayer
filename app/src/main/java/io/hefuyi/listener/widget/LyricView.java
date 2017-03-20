@@ -45,11 +45,9 @@ public class LyricView extends View {
     private int mIndicatorColor = Color.parseColor("#EFEFEF");  // 指示器颜色
     private int mHighLightColor = Color.parseColor("#4FC5C7");  // 当前播放位置的颜色
     private int mCurrentShowColor = Color.parseColor("#AAAAAA");  // 当前拖动位置的颜色
-    private int mAlpha = 255;
 
     private int mLineCount;  // 行数
     private float mLineHeight;  // 行高
-    private int mIndicatorSpace;
 
     private float mScrollY = 0;  // 纵轴偏移量
     private float mVelocity = 0;  // 纵轴上的滑动速度
@@ -85,7 +83,6 @@ public class LyricView extends View {
     private boolean mPlayable = false;
     private boolean mSliding = false;
     private boolean mTouchable = true;
-    private boolean mIsHasLyric = false;
 
     public LyricView(Context context) {
         super(context);
@@ -641,15 +638,12 @@ public class LyricView extends View {
 
                 mLyricInfo = lyricInfo;
                 mLineCount = mLyricInfo.song_lines.size();
-                mIsHasLyric = true;
                 invalidateView();
             } catch (IOException e) {
-                mIsHasLyric = false;
                 e.printStackTrace();
             }
         } else {
             mDefaultHint = "暂无歌词";
-            mIsHasLyric = false;
             invalidateView();
         }
     }
@@ -833,11 +827,9 @@ public class LyricView extends View {
                 setupLyricResource(new FileInputStream(file), charsetName);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
-                mIsHasLyric = false;
             }
         } else {
             mDefaultHint = "暂无歌词";
-            mIsHasLyric = false;
             invalidateView();
         }
     }

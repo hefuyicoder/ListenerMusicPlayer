@@ -74,12 +74,6 @@ public class ListenerUtil {
         return ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), paramInt);
     }
 
-    public static String makeCombinedString(final Context context, final String first,
-                                            final String second) {
-        final String formatter = context.getResources().getString(R.string.combine_two_strings);
-        return String.format(formatter, first, second);
-    }
-
     public static final String makeLabel(final Context context, final int pluralInt,
                                          final int number) {
         return context.getResources().getQuantityString(pluralInt, number, number);

@@ -225,10 +225,6 @@ public class SongsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         notifyDataSetChanged();
     }
 
-    public long[] getSongListID() {
-        return songIDs;
-    }
-
     @NonNull
     @Override
     public String getSectionName(int position) {

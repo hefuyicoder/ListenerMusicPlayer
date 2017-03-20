@@ -1,7 +1,6 @@
 package io.hefuyi.listener.ui.adapter;
 
 import android.app.Activity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -69,11 +68,9 @@ public class ArtistAlbumAdapter extends RecyclerView.Adapter<ArtistAlbumAdapter.
         TextView title;
         TextView details;
         ImageView albumArt;
-        CardView rootView;
 
         public ItemHolder(View view) {
             super(view);
-            this.rootView = (CardView) view.findViewById(R.id.root_view);
             this.title = (TextView) view.findViewById(R.id.album_title);
             this.details = (TextView) view.findViewById(R.id.album_details);
             this.albumArt = (ImageView) view.findViewById(R.id.album_art);

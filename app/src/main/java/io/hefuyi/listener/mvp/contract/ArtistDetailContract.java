@@ -21,8 +21,6 @@ public interface ArtistDetailContract {
 
         void showArtistArt(Drawable drawable);
 
-        void setTitle(String artistName);
-
     }
 
     interface Presenter extends BasePresenter<View> {

@@ -2045,34 +2045,6 @@ public class MusicService extends Service {
     }
 
     /**
-     * 播放播放列表中指定位置的曲目
-     * @param pos
-     */
-    public void goToPosition(int pos) {
-        synchronized (this) {
-            if (mPlaylist.size() <= 0) {
-                if (D) Log.d(TAG, "No play queue");
-                scheduleDelayedShutdown();
-                return;
-            }
-            if (pos < 0) {
-                return;
-            }
-            if (pos == mPlayPos) {
-                if (!isPlaying()) {
-                    play();
-                }
-                return;
-            }
-            stop(false);
-            setAndRecordPlayPos(pos);
-            openCurrentAndNext();
-            play();
-            notifyChange(META_CHANGED);
-        }
-    }
-
-    /**
      * 给mPlayPos设置播放的曲目ID
      * @param nextPos
      */
@@ -2434,9 +2406,6 @@ public class MusicService extends Service {
 
         private boolean mIsInitialized = false;
 
-        private String mNextMediaPath;
-
-
         public MultiPlayer(final MusicService service) {
             mService = new WeakReference<MusicService>(service);
             mCurrentMediaPlayer.setWakeMode(mService.get(), PowerManager.PARTIAL_WAKE_LOCK);
@@ -2478,7 +2447,6 @@ public class MusicService extends Service {
 
 
         public void setNextDataSource(final String path) {
-            mNextMediaPath = null;
             try {
                 mCurrentMediaPlayer.setNextMediaPlayer(null);
             } catch (IllegalArgumentException e) {
@@ -2498,7 +2466,6 @@ public class MusicService extends Service {
             mNextMediaPlayer.setWakeMode(mService.get(), PowerManager.PARTIAL_WAKE_LOCK);
             mNextMediaPlayer.setAudioSessionId(getAudioSessionId());
             if (setDataSourceImpl(mNextMediaPlayer, path)) {
-                mNextMediaPath = path;
                 mCurrentMediaPlayer.setNextMediaPlayer(mNextMediaPlayer);
             } else {
                 if (mNextMediaPlayer != null) {
@@ -2564,10 +2531,6 @@ public class MusicService extends Service {
             return mCurrentMediaPlayer.getAudioSessionId();
         }
 
-        public void setAudioSessionId(final int sessionId) {
-            mCurrentMediaPlayer.setAudioSessionId(sessionId);
-        }
-
         @Override
         public boolean onError(final MediaPlayer mp, final int what, final int extra) {
             Log.w(TAG, "Music Server Error what: " + what + " extra: " + extra);
@@ -2596,7 +2559,6 @@ public class MusicService extends Service {
             if (mp == mCurrentMediaPlayer && mNextMediaPlayer != null) {
                 mCurrentMediaPlayer.release();
                 mCurrentMediaPlayer = mNextMediaPlayer;
-                mNextMediaPath = null;
                 mNextMediaPlayer = null;
                 mHandler.sendEmptyMessage(TRACK_WENT_TO_NEXT);
             } else {

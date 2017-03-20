@@ -22,7 +22,6 @@ public class PermissionManager {
 
     private static final String TAG = PermissionManager.class.getSimpleName();
     private static final String KEY_PREV_PERMISSIONS = "previous_permissions";
-    private static final String KEY_IGNORED_PERMISSIONS = "ignored_permissions";
     private static Context context;
     private static SharedPreferences sharedPreferences;
     private static ArrayList<PermissionRequest> permissionRequests = new ArrayList<PermissionRequest>();
@@ -181,32 +180,6 @@ public class PermissionManager {
             set.add(perm);
         }
         sharedPreferences.edit().putStringSet(KEY_PREV_PERMISSIONS, set).apply();
-    }
-
-    /**
-     * Get list of previous Permissions, from last refreshMonitoredList() call and they may be outdated,
-     * use getGrantedPermissions() to get current
-     */
-    public static ArrayList<String> getPreviousPermissions() {
-        ArrayList<String> prevPermissions = new ArrayList<String>();
-        prevPermissions.addAll(sharedPreferences.getStringSet(KEY_PREV_PERMISSIONS, new HashSet<String>()));
-        return prevPermissions;
-    }
-
-    public static ArrayList<String> getIgnoredPermissions() {
-        ArrayList<String> ignoredPermissions = new ArrayList<String>();
-        ignoredPermissions.addAll(sharedPreferences.getStringSet(KEY_IGNORED_PERMISSIONS, new HashSet<String>()));
-        return ignoredPermissions;
-    }
-
-    /**
-     * Lets see if we already ignore this permission
-     */
-    public static boolean isIgnoredPermission(String permission) {
-        if (permission == null) {
-            return false;
-        }
-        return getIgnoredPermissions().contains(permission);
     }
 
     /**

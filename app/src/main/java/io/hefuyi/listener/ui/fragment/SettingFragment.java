@@ -23,7 +23,6 @@ import io.hefuyi.listener.util.PreferencesUtility;
  */
 public class SettingFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener{
 
-    private PreferencesUtility mPreferences;
     private String mAteKey;
 
     @Override
@@ -31,8 +30,6 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.preferences);
-
-        mPreferences = PreferencesUtility.getInstance(getActivity());
 
         PreferencesUtility.getInstance(getActivity()).setOnSharedPreferenceChangeListener(this);
 

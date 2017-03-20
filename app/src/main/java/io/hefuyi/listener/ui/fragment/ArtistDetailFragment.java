@@ -187,11 +187,6 @@ public class ArtistDetailFragment extends Fragment implements ArtistDetailContra
         collapsingToolbarLayout.setStatusBarScrimColor(ColorUtil.getStatusBarColor(primaryColor));
     }
 
-    @Override
-    public void setTitle(String artistName) {
-        collapsingToolbarLayout.setTitle(artistName);
-    }
-
     @OnClick(R.id.fab_play)
     public void onFabPlayClick() {
         MusicPlayer.playAll(getActivity(), mArtistMusicFragment.mSongAdapter.getSongIds(), 0, artistID, ListenerUtil.IdType.Artist, false);

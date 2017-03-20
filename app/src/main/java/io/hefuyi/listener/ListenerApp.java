@@ -8,7 +8,6 @@ import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.os.StrictMode;
 
 import com.afollestad.appthemeengine.ATE;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -62,17 +61,17 @@ public class ListenerApp extends Application {
 //        LeakCanary.install(this);
 //    }
 
-    private void setStrictMode() {
-        if (BuildConfig.DEBUG) {
-            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().build());
-            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build());
-        }
-    }
+//    private void setStrictMode() {
+//        if (BuildConfig.DEBUG) {
+//            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().build());
+//            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build());
+//        }
+//    }
 
-    private void setCrashHandler() {
-        CrashHandler crashHandler = CrashHandler.getInstance(this);
-        Thread.setDefaultUncaughtExceptionHandler(crashHandler);
-    }
+//    private void setCrashHandler() {
+//        CrashHandler crashHandler = CrashHandler.getInstance(this);
+//        Thread.setDefaultUncaughtExceptionHandler(crashHandler);
+//    }
 
 //    private void initStetho() {
 //        Stetho.initializeWithDefaults(this);
