@@ -11,7 +11,6 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.gson.Gson;
 
-import io.hefuyi.listener.ListenerApp;
 import io.hefuyi.listener.mvp.contract.ArtistDetailContract;
 import io.hefuyi.listener.mvp.model.ArtistArt;
 import io.hefuyi.listener.util.ATEUtil;
@@ -57,7 +56,7 @@ public class ArtistDetailPresenter implements ArtistDetailContract.Presenter {
         String artistArtJson=PreferencesUtility.getInstance(mView.getContext()).getArtistArt(artistID);
         if (!TextUtils.isEmpty(artistArtJson)) {
             ArtistArt artistArt = new Gson().fromJson(artistArtJson, ArtistArt.class);
-            Glide.with(ListenerApp.getContext())
+            Glide.with(mView.getContext())
                     .load(artistArt.getExtralarge())
                     .asBitmap()
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)

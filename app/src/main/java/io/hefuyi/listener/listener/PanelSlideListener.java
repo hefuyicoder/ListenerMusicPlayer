@@ -200,8 +200,8 @@ public class PanelSlideListener implements SlidingUpPanelLayout.PanelSlideListen
         heart.setX(intEvaluator.evaluate(slideOffset, heartStartX, heartEndX));
         next.setX(intEvaluator.evaluate(slideOffset, nextStartX, nextEndX));
         playqueue.setX(intEvaluator.evaluate(slideOffset, playqueueStartX, playqueueEndX));
-        heart.setAlpha(floatEvaluator.evaluate(slideOffset, 0, 1));
-        previous.setAlpha(floatEvaluator.evaluate(slideOffset, 0, 1));
+        heart.setImageAlpha(intEvaluator.evaluate(slideOffset, 0, 1));
+        previous.setImageAlpha(intEvaluator.evaluate(slideOffset, 0, 1));
         iconContainer.setY(intEvaluator.evaluate(slideOffset, iconContainerStartY, iconContainerEndY));
 
         //animate lyric view
@@ -211,7 +211,7 @@ public class PanelSlideListener implements SlidingUpPanelLayout.PanelSlideListen
     @Override
     public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
         if (previousState == SlidingUpPanelLayout.PanelState.COLLAPSED) {
-            progressBar.setVisibility(View.GONE);
+            progressBar.setVisibility(View.INVISIBLE);
             heart.setVisibility(View.VISIBLE);
             previous.setVisibility(View.VISIBLE);
         } else if (previousState == SlidingUpPanelLayout.PanelState.EXPANDED) {

@@ -125,6 +125,11 @@ public class PlayPauseView extends FrameLayout {
     }
 
     @Override
+    public boolean hasOverlappingRendering() {
+        return false;
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         mPaint.setColor(mBackgroundColor);

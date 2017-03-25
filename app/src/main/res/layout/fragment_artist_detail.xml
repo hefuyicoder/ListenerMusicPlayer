@@ -9,6 +9,7 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/transparent"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:fitsSystemWindows="true">
 
@@ -16,7 +17,6 @@
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="330dp"
-            android:background="?android:windowBackground"
             app:expandedTitleMarginBottom="25dp"
             app:expandedTitleMarginStart="30dp"
             app:contentScrim="?colorPrimary"

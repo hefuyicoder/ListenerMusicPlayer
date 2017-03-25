@@ -50,7 +50,7 @@ public class NetworkModule {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()
-                .cache(new Cache(FileUtil.getHttpCacheDir(ListenerApp.getContext()), Constants.HTTP_CACHE_SIZE))
+                .cache(new Cache(FileUtil.getHttpCacheDir(mListenerApp.getApplicationContext()), Constants.HTTP_CACHE_SIZE))
                 .connectTimeout(Constants.HTTP_CONNECT_TIMEOUT, TimeUnit.MILLISECONDS)
                 .readTimeout(Constants.HTTP_READ_TIMEOUT, TimeUnit.MILLISECONDS)
                 .build();
@@ -76,7 +76,7 @@ public class NetworkModule {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()
-                .cache(new Cache(FileUtil.getHttpCacheDir(ListenerApp.getContext()), Constants.HTTP_CACHE_SIZE))
+                .cache(new Cache(FileUtil.getHttpCacheDir(mListenerApp.getApplicationContext()), Constants.HTTP_CACHE_SIZE))
                 .connectTimeout(Constants.HTTP_CONNECT_TIMEOUT, TimeUnit.MILLISECONDS)
                 .readTimeout(Constants.HTTP_READ_TIMEOUT, TimeUnit.MILLISECONDS)
                 .build();

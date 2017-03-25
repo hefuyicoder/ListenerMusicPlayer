@@ -43,8 +43,6 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 
-import static io.hefuyi.listener.ListenerApp.getContext;
-
 /**
  * Created by hefuyi on 2016/11/4.
  */
@@ -152,7 +150,7 @@ public class ListenerUtil {
                                         } else if (which == 1) {
                                             //我喜欢
                                             int num = FavoriteSong.getInstance(context).addFavoriteSong(songIds);
-                                            Toast.makeText(getContext(), R.string.add_favorite_success, Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(context, R.string.add_favorite_success, Toast.LENGTH_SHORT).show();
                                             RxBus.getInstance().post(new FavourateSongEvent());
                                             dialog.dismiss();
                                             return;

@@ -6,7 +6,11 @@
     android:layout_height="match_parent"
     android:layout_marginBottom="@dimen/sliding_up_header">
 
-    <include layout="@layout/layout_empty_view_default"/>
+    <ViewStub
+        android:id="@+id/view_empty"
+        android:layout="@layout/layout_empty_view_default"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <io.hefuyi.listener.widget.fastscroller.FastScrollRecyclerView
         android:id="@+id/recyclerview"

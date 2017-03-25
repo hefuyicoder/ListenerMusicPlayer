@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.view.inputmethod.InputMethodManager;
 
 import com.afollestad.appthemeengine.ATE;
@@ -65,7 +66,7 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
     @BindView(R.id.recyclerview)
     RecyclerView recyclerView;
     @BindView(R.id.view_empty)
-    View emptyView;
+    ViewStub emptyView;
 
     private SearchView mSearchView;
     private InputMethodManager mImm;

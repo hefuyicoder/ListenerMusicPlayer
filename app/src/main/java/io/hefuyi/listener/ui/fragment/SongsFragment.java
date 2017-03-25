@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 
 import com.afollestad.appthemeengine.ATE;
 
@@ -59,7 +60,7 @@ public class SongsFragment extends Fragment implements SongsContract.View {
     @BindView(R.id.recyclerview)
     FastScrollRecyclerView recyclerView;
     @BindView(R.id.view_empty)
-    View emptyView;
+    ViewStub emptyView;
     private SongsListAdapter mAdapter;
     private PreferencesUtility mPreferences;
     private String action;

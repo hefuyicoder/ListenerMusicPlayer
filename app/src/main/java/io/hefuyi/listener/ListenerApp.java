@@ -2,7 +2,6 @@ package io.hefuyi.listener;
 
 import android.Manifest;
 import android.app.Application;
-import android.content.Context;
 import android.content.Intent;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
@@ -35,13 +34,11 @@ import rx.schedulers.Schedulers;
 
 public class ListenerApp extends Application {
 
-    private static Context sContext;
     private ApplicationComponent mApplicationComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        sContext = getApplicationContext();
 
 //        initLeakCanary();
 //        setCrashHandler();
@@ -88,10 +85,6 @@ public class ListenerApp extends Application {
         ImageLoader.getInstance().init(localImageLoaderConfiguration);
     }
 
-    public static Context getContext() {
-        return sContext;
-    }
-
     public ApplicationComponent getApplicationComponent() {
         return mApplicationComponent;
     }
@@ -120,7 +113,7 @@ public class ListenerApp extends Application {
                     .subscribe(new Action1<String[]>() {
                         @Override
                         public void call(String[] paths) {
-                            MediaScannerConnection.scanFile(getContext(), paths, null,
+                            MediaScannerConnection.scanFile(getApplicationContext(), paths, null,
                                     new MediaScannerConnection.OnScanCompletedListener() {
                                         @Override
                                         public void onScanCompleted(String path, Uri uri) {

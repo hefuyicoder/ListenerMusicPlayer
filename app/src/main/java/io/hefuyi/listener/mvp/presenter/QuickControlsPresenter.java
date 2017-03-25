@@ -3,6 +3,7 @@ package io.hefuyi.listener.mvp.presenter;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.support.v7.graphics.Palette;
 import android.text.TextUtils;
 
@@ -59,13 +60,23 @@ public class QuickControlsPresenter implements QuickControlsContract.Presenter {
     @Override
     public void onPlayPauseClick() {
         mDuetoplaypause = true;
-        if (MusicPlayer.isPlaying()) {
-            mView.setPlayPauseButton(false);
-        } else {
-            mView.setPlayPauseButton(true);
-        }
+        new AsyncTask<Void, Void, Boolean>() {
+            @Override
+            protected Boolean doInBackground(final Void... unused) {
+                boolean isPlaying = MusicPlayer.isPlaying();
+                MusicPlayer.playOrPause();
+                return isPlaying;
+            }
 
-        MusicPlayer.playOrPause();
+            @Override
+            protected void onPostExecute(Boolean isPlaying) {
+                if (isPlaying) {
+                    mView.setPlayPauseButton(false);
+                } else {
+                    mView.setPlayPauseButton(true);
+                }
+            }
+        }.execute();
 
     }
 

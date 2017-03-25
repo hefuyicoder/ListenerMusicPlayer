@@ -5,7 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/layout_empty_view_default"/>
+    <ViewStub
+        android:id="@+id/view_empty"
+        android:layout="@layout/layout_empty_view_default"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <include layout="@layout/status_bar"/>
 

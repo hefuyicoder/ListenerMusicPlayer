@@ -114,7 +114,7 @@ public class SongsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     itemHolder.title.setTextColor(ATEUtil.getThemeTextColorPrimary(mContext));
                 }
 
-                if (topPlayScore != -1) {
+                if (topPlayScore != 0) {
                     itemHolder.playscore.setVisibility(View.VISIBLE);
                     RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) itemHolder.playscore.getLayoutParams();
                     int full = DensityUtil.getScreenWidth(mContext);
