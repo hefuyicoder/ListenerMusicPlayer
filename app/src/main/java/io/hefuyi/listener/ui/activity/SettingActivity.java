@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.afollestad.appthemeengine.ATE;
@@ -34,6 +35,14 @@ public class SettingActivity extends BaseActivity implements ColorChooserDialog.
         PreferenceFragment fragment = new SettingFragment();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        menu.clear();
+        return true;
     }
 
     @Override
