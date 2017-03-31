@@ -200,8 +200,8 @@ public class PanelSlideListener implements SlidingUpPanelLayout.PanelSlideListen
         heart.setX(intEvaluator.evaluate(slideOffset, heartStartX, heartEndX));
         next.setX(intEvaluator.evaluate(slideOffset, nextStartX, nextEndX));
         playqueue.setX(intEvaluator.evaluate(slideOffset, playqueueStartX, playqueueEndX));
-        heart.setImageAlpha(intEvaluator.evaluate(slideOffset, 0, 1));
-        previous.setImageAlpha(intEvaluator.evaluate(slideOffset, 0, 1));
+        heart.setAlpha(floatEvaluator.evaluate(slideOffset, 0, 1));
+        previous.setAlpha(floatEvaluator.evaluate(slideOffset, 0, 1));
         iconContainer.setY(intEvaluator.evaluate(slideOffset, iconContainerStartY, iconContainerEndY));
 
         //animate lyric view
