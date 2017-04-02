@@ -87,7 +87,7 @@ public class MusicService extends Service {
     public static final String STOP_ACTION = "io.hefuyi.listener.stop";
     public static final String PREVIOUS_ACTION = "io.hefuyi.listener.previous";
     public static final String PREVIOUS_FORCE_ACTION = "io.hefuyi.listener.previous.force";
-    public static final String NEXT_ACTION = "fio.hefuyi.listener.next";
+    public static final String NEXT_ACTION = "io.hefuyi.listener.next";
     public static final String REPEAT_ACTION = "io.hefuyi.listener.repeat";
     public static final String SHUFFLE_ACTION = "io.hefuyi.listener.shuffle";
 
